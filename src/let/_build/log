@@ -1,0 +1,33 @@
+# dune utop
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/stephen/.cache/dune/db
+# Workspace root: "/mnt/c/Users/Stephen/Desktop/Stevens/CS 496/PLaF/src/let"
+# Auto-detected concurrency: 16
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/mnt/c/Users/Stephen/Desktop/Stevens/CS 496/PLaF/src/let/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /usr/bin/ocamlc.opt -config > /tmp/dune_d12a29_output
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl lib/interp.ml) > _build/default/lib/.let.objs/let__Interp.impl.d
+> File "lib/interp.ml", line 87, characters 33-35:
+> 87 |     | (stringx, (booly, (exprz)) -> (stringx, eval_expr exprz)
+>                                       ^^
+> Error: Syntax error: ')' expected
+> File "lib/interp.ml", line 87, characters 6-7:
+> 87 |     | (stringx, (booly, (exprz)) -> (stringx, eval_expr exprz)
+>            ^
+>   This '(' might be unmatched
+[2]

@@ -1,0 +1,6 @@
+description = "Interpreter for EXPLICIT_REFS"
+requires = "parser_plaf"
+archive(byte) = "explicit_refs.cma"
+archive(native) = "explicit_refs.cmxa"
+plugin(byte) = "explicit_refs.cma"
+plugin(native) = "explicit_refs.cmxs"

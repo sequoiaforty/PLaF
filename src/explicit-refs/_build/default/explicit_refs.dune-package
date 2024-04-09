@@ -1,0 +1,63 @@
+(lang dune 3.13)
+(name explicit_refs)
+(sections (lib .) (libexec .))
+(files
+ (lib
+  (META
+   ds.ml
+   dune-package
+   explicit_refs.a
+   explicit_refs.cma
+   explicit_refs.cmi
+   explicit_refs.cmt
+   explicit_refs.cmx
+   explicit_refs.cmxa
+   explicit_refs.ml
+   explicit_refs__Ds.cmi
+   explicit_refs__Ds.cmt
+   explicit_refs__Ds.cmx
+   explicit_refs__Interp.cmi
+   explicit_refs__Interp.cmt
+   explicit_refs__Interp.cmx
+   explicit_refs__Store.cmi
+   explicit_refs__Store.cmt
+   explicit_refs__Store.cmti
+   explicit_refs__Store.cmx
+   interp.ml
+   opam
+   store.ml
+   store.mli))
+ (libexec (explicit_refs.cmxs)))
+(library
+ (name explicit_refs)
+ (kind normal)
+ (synopsis "Interpreter for EXPLICIT_REFS")
+ (archives (byte explicit_refs.cma) (native explicit_refs.cmxa))
+ (plugins (byte explicit_refs.cma) (native explicit_refs.cmxs))
+ (native_archives explicit_refs.a)
+ (requires parser_plaf)
+ (main_module_name Explicit_refs)
+ (modes byte native)
+ (modules
+  (wrapped
+   (group
+    (alias
+     (obj_name explicit_refs)
+     (visibility public)
+     (kind alias)
+     (source (path Explicit_refs) (impl (path explicit_refs.ml-gen))))
+    (name Explicit_refs)
+    (modules
+     (module
+      (obj_name explicit_refs__Ds)
+      (visibility public)
+      (source (path Ds) (impl (path ds.ml))))
+     (module
+      (obj_name explicit_refs__Interp)
+      (visibility public)
+      (source (path Interp) (impl (path interp.ml))))
+     (module
+      (obj_name explicit_refs__Store)
+      (visibility public)
+      (source (path Store) (intf (path store.mli)) (impl (path store.ml))))))
+   (wrapped true))))

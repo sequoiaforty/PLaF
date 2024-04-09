@@ -62,11 +62,61 @@ let rec eval_expr : expr -> exp_val ea_result =
     eval_expr e >>=
     pair_of_pairVal >>= fun (_,r) ->
     return r
+  (*TREE CODE HERE WORKS*)
+  | IsEmpty ( e ) -> eval_expr e >>= tree_of_treeVal >>= fun x1 -> return (BoolVal (x1 = Empty))
+  | EmptyTree ( _t ) ->
+    return (TreeVal Empty)
+  | Node ( e1 , e2 , e3 ) ->
+    eval_expr e1 >>= fun n1 ->
+    eval_expr e2 >>= tree_of_treeVal >>= fun n2 ->
+    eval_expr e3 >>= tree_of_treeVal >>= fun n3 ->
+    return (TreeVal (Node (n1, n2, n3)))
+  | CaseT ( e1 , e2 , id1 , id2 , id3 , e3 ) ->
+    eval_expr e1 >>= tree_of_treeVal >>= fun f1 ->
+    (match f1 with
+      | Empty -> eval_expr e2
+      | Node(a, l, r) ->
+    extend_env id1 a >>+
+    extend_env id2 (TreeVal l) >>+
+    extend_env id3 (TreeVal r) >>+
+    eval_expr e3)
+    (*RECORD CODE HERE*)
+  | Record( fs ) -> return (RecordVal (List.map
+  (fun x ->
+    match x with
+    | (stringx, (booly, (exprz)) -> (stringx, eval_expr exprz)
+    ))
+  fs))
+  (*| Record ( fs ) -> List.fold_left (fun acc (stringx, (booly, (eval_expr exprz))) -> ExtendEnv(stringx,exprz,acc)) EmptyEnv fs >>=
+  eval_exprs fs >>= fun x ->
+    (match (convert_record_to_list x) with
+    | (fname::fname_tl, fvalue::fvalue_tl) -> eval_expr (RecordVal (convert_list_to_record (fname_tl, fvalue_tl)))
+    | _ -> [])    *)
+  (*| Proj (e , id ) -> eval_expr e >>= convert_record_to_list >>= fun frames ->
+    (match frames with
+    | (fname, fvalue)::tl -> if ((eval_expr fname) = (eval_expr id))
+                              then (eval_expr fvalue)
+                              else (eval_expr (Proj (Record (convert_list_to_record tl), id)))
+    | [] -> "Proj : field does not exist")   *)
   | Debug(_e) ->
     string_of_env >>= fun str ->
     print_endline str; 
     error "Debug called"
   | _ -> failwith "Not implemented yet!"
+and
+  eval_exprs : expr list -> ( exp_val list ) ea_result =
+  fun es ->
+  match es with
+  | [] -> return []
+  | h :: t -> eval_expr h >>= fun i ->
+  eval_exprs t >>= fun l ->
+  return ( i :: l )
+
+let rec eval_exprs : expr list -> ( exp_val list ) ea_result =
+  fun es ->
+  match es with
+  | [] -> return []
+  | h :: t -> eval_expr h >>= fun i -> eval_exprs t >>= fun l -> return ( i :: l )
 
 (** [eval_prog e] evaluates program [e] *)
 let eval_prog (AProg(_,e)) =

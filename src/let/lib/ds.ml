@@ -1,13 +1,18 @@
 (* This file defines expressed values and environments *)
 
 (* expressed values and environments are defined mutually recursively *)
-
+(*Added tree type*)
+type 'a tree = Empty | Node of 'a * 'a tree * 'a tree
 
 type exp_val =
   | NumVal of int
   | BoolVal of bool
   | PairVal of exp_val*exp_val
   | TupleVal of exp_val list
+  (*Added ListVal and TreeVal here*)
+  | ListVal of exp_val list
+  | TreeVal of exp_val tree
+  | RecordVal of (string*(bool*exp_val)) list
 type env =
   | EmptyEnv
   | ExtendEnv of string*exp_val*env
@@ -123,3 +128,26 @@ let string_of_env : string ea_result =
   match env with
   | EmptyEnv -> Ok ">>Environment:\nEmpty"
   | _ -> Ok (">>Environment:\n"^ string_of_env' [] env)
+
+let tree_of_treeVal : exp_val -> exp_val tree ea_result =  function
+  | TreeVal n -> return n
+  | _ -> error "Expected a tree!"
+
+let rec convert_record_to_list_helper x =
+  match x with
+  | [] -> []
+  | (stringy, (_, expry))::tl -> (stringy, expry)::(convert_record_to_list_helper tl)
+
+let convert_record_to_list x = List.split(convert_record_to_list_helper x)
+
+let rec convert_list_to_record x =
+  match x with
+  | [] -> []
+  | (stringy, expry)::tl -> (stringy, (false, expry))::(convert_list_to_record tl)
+
+let rec are_there_duplicates x =
+  match x with
+  | [] -> false
+  | hd::tl -> if (List.mem hd tl)
+    then true
+else are_there_duplicates tl

@@ -52,6 +52,22 @@ let rec chk_expr : expr -> texpr tea_result = function
      else error
          "LetRec: Type of recursive function does not match
 declaration")
+  | Record([]) -> error "error: empty record"
+  | Record(fs) -> 
+    let (ids, bes) = List.split(fs) in
+    let (binaries, vals) = List.split(bes) in
+    if (List.length (sort_uniq ids) = List.length ids)
+    then let x = chk_exprs vals >>= fun types ->
+      return (RecordType (List.combine ids types))
+    else error "error: duplicate fields"
+  | Proj(e,id) ->
+    chk_expr e >>= fun te ->
+    match te with
+    | RecordType fts ->
+      match List.assoc_opt id fts with
+      | Some t -> return t
+      | None -> error "proj: field does not exist"
+    | _ -> "proj: target not a record"
   | Debug(_e) ->
     string_of_tenv >>= fun str ->
     print_endline str;
@@ -60,6 +76,14 @@ declaration")
 and
   chk_prog (AProg(_,e)) =
   chk_expr e
+and
+  chk_exprs es =
+  match es with
+  | [] -> []
+  | hd::td ->
+    chk_expr hd >>= fun th ->
+    chk_exprs tl >>= fun l ->
+    return (th::l)
 
 (* Type-check an expression *)
 let chk (e:string) : texpr result =
