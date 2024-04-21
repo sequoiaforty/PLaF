@@ -21,10 +21,10 @@
 #        }
 #  ; instrument_with = []
 #  }
-$ /usr/bin/ocamlc.opt -config > /tmp/dune_0c8f86_output
+$ /usr/bin/ocamlc.opt -config > /tmp/dune_389a57_output
 $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl lib/checker.ml) > _build/default/lib/.checked.objs/checked__Checker.impl.d
-> File "lib/checker.ml", line 63, characters 2-3:
-> 63 |   | Proj(e,id) ->
->        ^
+> File "lib/checker.ml", line 62, characters 4-8:
+> 62 |     else error "error: duplicate
+>          ^^^^
 > Error: Syntax error
 [2]

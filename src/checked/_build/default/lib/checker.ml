@@ -59,7 +59,7 @@ declaration")
     if (List.length (sort_uniq ids) = List.length ids)
     then let x = chk_exprs vals >>= fun types ->
       return (RecordType (List.combine ids types))
-    (* else error "error: duplicate fields" *)
+    else error "error: duplicate fields"
   | Proj(e,id) ->
     chk_expr e >>= fun te ->
     match te with
