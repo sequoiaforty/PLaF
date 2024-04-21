@@ -1,0 +1,87 @@
+(lang dune 3.13)
+(name checked)
+(sections (lib .) (libexec .))
+(files
+ (lib
+  (META
+   checked.a
+   checked.cma
+   checked.cmi
+   checked.cmt
+   checked.cmx
+   checked.cmxa
+   checked.ml
+   checked__Checker.cmi
+   checked__Checker.cmt
+   checked__Checker.cmx
+   checked__Ds.cmi
+   checked__Ds.cmt
+   checked__Ds.cmx
+   checked__Dst.cmi
+   checked__Dst.cmt
+   checked__Dst.cmx
+   checked__Interp.cmi
+   checked__Interp.cmt
+   checked__Interp.cmx
+   checked__ReM.cmi
+   checked__ReM.cmt
+   checked__ReM.cmx
+   checked__Store.cmi
+   checked__Store.cmt
+   checked__Store.cmti
+   checked__Store.cmx
+   checker.ml
+   ds.ml
+   dst.ml
+   dune-package
+   interp.ml
+   opam
+   reM.ml
+   store.ml
+   store.mli))
+ (libexec (checked.cmxs)))
+(library
+ (name checked)
+ (kind normal)
+ (synopsis "Interpreter for CHECKED")
+ (archives (byte checked.cma) (native checked.cmxa))
+ (plugins (byte checked.cma) (native checked.cmxs))
+ (native_archives checked.a)
+ (requires parser_plaf)
+ (main_module_name Checked)
+ (modes byte native)
+ (modules
+  (wrapped
+   (group
+    (alias
+     (obj_name checked)
+     (visibility public)
+     (kind alias)
+     (source (path Checked) (impl (path checked.ml-gen))))
+    (name Checked)
+    (modules
+     (module
+      (obj_name checked__Checker)
+      (visibility public)
+      (source (path Checker) (impl (path checker.ml))))
+     (module
+      (obj_name checked__Ds)
+      (visibility public)
+      (source (path Ds) (impl (path ds.ml))))
+     (module
+      (obj_name checked__Dst)
+      (visibility public)
+      (source (path Dst) (impl (path dst.ml))))
+     (module
+      (obj_name checked__Interp)
+      (visibility public)
+      (source (path Interp) (impl (path interp.ml))))
+     (module
+      (obj_name checked__ReM)
+      (visibility public)
+      (source (path ReM) (impl (path reM.ml))))
+     (module
+      (obj_name checked__Store)
+      (visibility public)
+      (source (path Store) (intf (path store.mli)) (impl (path store.ml))))))
+   (wrapped true))))

@@ -1,0 +1,6 @@
+description = "Interpreter for CHECKED"
+requires = "parser_plaf"
+archive(byte) = "checked.cma"
+archive(native) = "checked.cmxa"
+plugin(byte) = "checked.cma"
+plugin(native) = "checked.cmxs"

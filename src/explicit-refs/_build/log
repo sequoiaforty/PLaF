@@ -21,4 +21,103 @@
 #        }
 #  ; instrument_with = []
 #  }
-$ /usr/bin/ocamlc.opt -config > /tmp/dune_498a7c_output
+$ /usr/bin/ocamlc.opt -config > /tmp/dune_610f3d_output
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl lib/interp.ml) > _build/default/lib/.explicit_refs.objs/explicit_refs__Interp.impl.d
+$ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -bin-annot -I lib/.explicit_refs.objs/byte -I /home/stephen/.opam/default/lib/menhirLib -I /home/stephen/.opam/default/lib/parser_plaf -no-alias-deps -opaque -open Explicit_refs -o lib/.explicit_refs.objs/byte/explicit_refs__Interp.cmo -c -impl lib/interp.ml)
+> File "lib/interp.ml", line 9, characters 4-10:
+> 9 |   | hd::tl -> 1 + (find_element list el)
+>         ^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 150, characters 8-9:
+> 150 |       | _ -> error "SetField: e1 is not a record"
+>               ^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 157, characters 4-5:
+> 157 |   | _ -> failwith ("Not implemented: "^string_of_expr e)
+>           ^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", lines 143-157, characters 6-56:
+> 143 | ......match n1 with
+> 144 |       | RecordVal e1 ->
+> 145 |           eval_expr e2 >>= fun n2 ->
+> 146 |             let (ids,bes) = List.split e1 in
+> 147 |               match (List.nth bes (find_element ids id)) with
+> ...
+> 154 |     let str_store = Store.string_of_store string_of_expval g_store 
+> 155 |     in (print_endline (str_env^"\n"^str_store);
+> 156 |     error "Reached breakpoint") *)
+> 157 |   | _ -> failwith ("Not implemented: "^string_of_expr e)
+> Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> (UnitVal|NumVal _|BoolVal _|ProcVal (_, _, _)|PairVal (_, _)|TupleVal _|
+> RefVal _|IsEqual (_, _)|IsGT (_, _)|IsLT (_, _)|Record _|Proj (_, _)|
+> SetField (_, _, _)|IsNumber _|Debug _)
+> File "lib/interp.ml", line 141, characters 4-28:
+> 141 |   | SetField ( e1 ,id , e2 ) ->
+>           ^^^^^^^^^^^^^^^^^^^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 111, characters 4-22:
+> 111 |   | IsEqual (e1 , e2 ) -> (* check that evaluation of e1 , e2 are NumVals *)
+>           ^^^^^^^^^^^^^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 117, characters 4-19:
+> 117 |   | IsGT (e1 , e2 ) -> (* check that evaluation of e1 , e2 are NumVals *)
+>           ^^^^^^^^^^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 123, characters 4-19:
+> 123 |   | IsLT (e1 , e2 ) -> (* check that evaluation of e1 , e2 are NumVals *)
+>           ^^^^^^^^^^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 129, characters 4-17:
+> 129 |   | Record ( fs ) ->
+>           ^^^^^^^^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", line 132, characters 4-18:
+> 132 |   | Proj (e , id ) ->
+>           ^^^^^^^^^^^^^^
+> Warning 11 [redundant-case]: this match case is unused.
+> File "lib/interp.ml", lines 20-157, characters 2-56:
+>  20 | ..match e with
+>  21 |   | Int(n) -> return @@ NumVal n
+>  22 |   | Var(id) -> apply_env id
+>  23 |   | Add(e1,e2) ->
+>  24 |     eval_expr e1 >>=
+> ...
+> 154 |     let str_store = Store.string_of_store string_of_expval g_store 
+> 155 |     in (print_endline (str_env^"\n"^str_store);
+> 156 |     error "Reached breakpoint") *)
+> 157 |   | _ -> failwith ("Not implemented: "^string_of_expr e)
+> Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> Letrec ((_, _, _, _, _)::_::_, _)
+> File "lib/interp.ml", line 8, characters 4-6:
+> 8 |   | el::tl -> 0
+>         ^^
+> Warning 27 [unused-var-strict]: unused variable el.
+> File "lib/interp.ml", line 8, characters 8-10:
+> 8 |   | el::tl -> 0
+>             ^^
+> Warning 27 [unused-var-strict]: unused variable tl.
+> File "lib/interp.ml", line 9, characters 4-6:
+> 9 |   | hd::tl -> 1 + (find_element list el)
+>         ^^
+> Warning 27 [unused-var-strict]: unused variable hd.
+> File "lib/interp.ml", line 9, characters 8-10:
+> 9 |   | hd::tl -> 1 + (find_element list el)
+>             ^^
+> Warning 27 [unused-var-strict]: unused variable tl.
+> File "lib/interp.ml", line 109, characters 15-16:
+> 109 |       | NumVal n -> return @@ BoolVal true
+>                      ^
+> Warning 27 [unused-var-strict]: unused variable n.
+> File "lib/interp.ml", line 145, characters 31-33:
+> 145 |           eval_expr e2 >>= fun n2 ->
+>                                      ^^
+> Warning 27 [unused-var-strict]: unused variable n2.
+> File "lib/interp.ml", line 148, characters 22-30:
+> 148 |               | (true,refToSet) -> return UnitVal
+>                             ^^^^^^^^
+> Warning 27 [unused-var-strict]: unused variable refToSet.
+$ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -24 -g -bin-annot -I .utop/.utop.eobjs/byte -I /home/stephen/.opam/default/lib/bytes -I /home/stephen/.opam/default/lib/findlib -I /home/stephen/.opam/default/lib/lambda-term -I /home/stephen/.opam/default/lib/logs -I /home/stephen/.opam/default/lib/lwt -I /home/stephen/.opam/default/lib/lwt/unix -I /home/stephen/.opam/default/lib/lwt_react -I /home/stephen/.opam/default/lib/menhirLib -I /home/stephen/.opam/default/lib/mew -I /home/stephen/.opam/default/lib/mew_vi -I /home/stephen/.opam/default/lib/ocplib-endian -I /home/stephen/.opam/default/lib/ocplib-endian/bigstring -I /home/stephen/.opam/default/lib/parser_plaf -I /home/stephen/.opam/default/lib/react -I /home/stephen/.opam/default/lib/result -I /home/stephen/.opam/default/lib/trie -I /home/stephen/.opam/default/lib/uchar -I /home/stephen/.opam/default/lib/utop -I /home/stephen/.opam/default/lib/uucp -I /home/stephen/.opam/default/lib/uuseg -I /home/stephen/.opam/default/lib/uutf -I /home/stephen/.opam/default/lib/xdg -I /home/stephen/.opam/default/lib/zed -I /usr/lib/ocaml/compiler-libs -I /usr/lib/ocaml/threads -I lib/.explicit_refs.objs/byte -no-alias-deps -o .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -c -impl .utop/utop.ml-gen)
+$ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -a -o lib/explicit_refs.cma lib/.explicit_refs.objs/byte/explicit_refs.cmo lib/.explicit_refs.objs/byte/explicit_refs__Ds.cmo lib/.explicit_refs.objs/byte/explicit_refs__Store.cmo lib/.explicit_refs.objs/byte/explicit_refs__Interp.cmo)
+$ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -24 -g -o .utop/utop.bc /usr/lib/ocaml/compiler-libs/ocamlcommon.cma /usr/lib/ocaml/compiler-libs/ocamlbytecomp.cma /usr/lib/ocaml/compiler-libs/ocamltoplevel.cma /home/stephen/.opam/default/lib/findlib/findlib.cma /home/stephen/.opam/default/lib/findlib/findlib_top.cma /home/stephen/.opam/default/lib/logs/logs.cma /home/stephen/.opam/default/lib/lwt/lwt.cma /home/stephen/.opam/default/lib/logs/logs_lwt.cma /usr/lib/ocaml/unix.cma /usr/lib/ocaml/bigarray.cma /home/stephen/.opam/default/lib/ocplib-endian/ocplib_endian.cma /home/stephen/.opam/default/lib/ocplib-endian/bigstring/ocplib_endian_bigstring.cma /usr/lib/ocaml/threads/threads.cma /home/stephen/.opam/default/lib/lwt/unix/lwt_unix.cma -I /home/stephen/.opam/default/lib/lwt/../stublibs /home/stephen/.opam/default/lib/react/react.cma /home/stephen/.opam/default/lib/lwt_react/lwt_react.cma /home/stephen/.opam/default/lib/result/result.cma /home/stephen/.opam/default/lib/uutf/uutf.cma /home/stephen/.opam/default/lib/uucp/uucp.cma /home/stephen/.opam/default/lib/uuseg/uuseg.cma /home/stephen/.opam/default/lib/zed/zed.cma /home/stephen/.opam/default/lib/trie/trie.cma /home/stephen/.opam/default/lib/mew/mew.cma /home/stephen/.opam/default/lib/mew_vi/mew_vi.cma /home/stephen/.opam/default/lib/lambda-term/lambda_term.cma -I /home/stephen/.opam/default/lib/lambda-term/../stublibs /home/stephen/.opam/default/lib/xdg/xdg.cma -I /home/stephen/.opam/default/lib/xdg/../stublibs /home/stephen/.opam/default/lib/utop/uTop.cma /home/stephen/.opam/default/lib/menhirLib/menhirLib.cma /home/stephen/.opam/default/lib/parser_plaf/parser_plaf.cma lib/explicit_refs.cma .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -linkall -warn-error -31)

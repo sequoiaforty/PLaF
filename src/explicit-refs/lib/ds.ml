@@ -13,6 +13,14 @@ type exp_val =
   | RecordVal of (string*(bool*exp_val)) list
   | UnitVal
   | RefVal of int
+  | IsEqual of expr*expr
+  | IsGT of expr*expr
+  | IsLT of expr*expr
+  | Record of ( string *( bool * expr )) list
+  | Proj of expr * string
+  | SetField of expr * string * expr
+  | IsNumber of expr
+  | Debug of exp_val
 and
   env =
   | EmptyEnv

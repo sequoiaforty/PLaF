@@ -1,0 +1,30 @@
+# dune build
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/stephen/.cache/dune/db
+# Workspace root: "/mnt/c/Users/Stephen/Desktop/Stevens/CS
+# 496/PLaF/src/checked"
+# Auto-detected concurrency: 16
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/mnt/c/Users/Stephen/Desktop/Stevens/CS 496/PLaF/src/checked/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /usr/bin/ocamlc.opt -config > /tmp/dune_0c8f86_output
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl lib/checker.ml) > _build/default/lib/.checked.objs/checked__Checker.impl.d
+> File "lib/checker.ml", line 63, characters 2-3:
+> 63 |   | Proj(e,id) ->
+>        ^
+> Error: Syntax error
+[2]
